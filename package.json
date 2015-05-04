@@ -1,5 +1,6 @@
 {
-  "name": "-",
+  "name": "",
+  "version": "0.9.3",
   "devDependencies": {
     "atma": ">0.9.26",
     "atma-server": "^0.1.20"
