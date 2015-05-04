@@ -1,7 +1,7 @@
 UTest({
 	$config: {
 		'http.process': {
-			command: 'atma custom examples/index',
+			command: 'npm run examples',
 			matchReady: '/Listen /'
 		}
 	},
