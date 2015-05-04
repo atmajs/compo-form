@@ -29,12 +29,13 @@ a:form;
 
 
 ### Attributes
-	- `action` Default is the current location. Endpoint to submit the form data.
-	- `method` Default is `POST`. Http Method.
-	- `get` (`String or just a flag`). If specified, the component will load the model from the endpoint. When no endpoint is set then the `action` is used, with the `GET` http method.
-	- `content-type` Default is `application/json`. Accepts also: `multipart/form-data`
-	- `form-type` Default is ''. Accepts also `horizontal`, `inline`. Refer to the [Bootstrap Forms](http://getbootstrap.com/css/#forms)
-	- `offset`. Default is 0. When form type is `horizontal` this attribute defines the `col` size for labels.
+
+- `action` Default is the current location. Endpoint to submit the form data.
+- `method` Default is `POST`. Http Method.
+- `get` (`String or just a flag`). If specified, the component will load the model from the endpoint. When no endpoint is set then the `action` is used, with the `GET` http method.
+- `content-type` Default is `application/json`. Accepts also: `multipart/form-data`
+- `form-type` Default is ''. Accepts also `horizontal`, `inline`. Refer to the [Bootstrap Forms](http://getbootstrap.com/css/#forms)
+- `offset`. Default is 0. When form type is `horizontal` this attribute defines the `col` size for labels.
 
 _Mask interpolation are also supported_
 
@@ -77,6 +78,7 @@ a:form action='user/~[id]' method='PUT' get form-type=horizontal offset=4;
 - `formActivity(type, ...args)`
 
 	Types:
+	
 	- `start`
 	- `progress`: plus arguments `'load|upload', percent`
 	- `end`
