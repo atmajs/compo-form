@@ -1,0 +1,10 @@
+let Notification {
+	@if (template) {
+		@template;
+	}
+	@else {
+		+if (notificationMsg) {
+			.alert.alert-~[bind: $scope.notificationType] > '~[bind: $scope.notificationMsg ]'
+		}
+	}
+}

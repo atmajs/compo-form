@@ -1,0 +1,12 @@
+let Select {
+	include ItemLayout {
+		@element {			
+			select .form-control {
+				@each (Option) > option value='@attr.value' {
+					@placeholder;
+				}
+				:dualbind value='@attr.property';
+			}
+		}
+	}
+}

@@ -1,0 +1,34 @@
+define MakeInvalid {
+	function validate () {
+		return 'Always invalid: ' + Math.random();
+	}
+}
+define Model {
+	function onRenderStart () {
+		this.model = {
+			foo: 'Hello',
+			Validate: {
+				foo: function(val){
+					return /^[a-zA-Z]+$/.test(val) ? null : 'Only characters';
+				}
+			},
+			errorMsg: 'Some?'
+		}
+	}
+}
+
+
+
+
+Model > a:form type=horizontal {
+	Validation > @template {
+		h4 > 'Error: ~[bind: $scope.errorMsg ]'
+	}
+	Template > @template {
+		h4    > 'Simple:'
+		input > dualbind value=foo;
+		
+		MakeInvalid;
+	}
+	button tap='submit' > 'Submit'
+}

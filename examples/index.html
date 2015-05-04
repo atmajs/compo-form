@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+<body>
+	<link href='/bower_components/bootstrap/dist/css/bootstrap.min.css' rel='stylesheet' />
+	
+	<script src='/bower_components/jquery/dist/jquery.min.js'></script>
+	<script src='/bower_components/bootstrap/dist/js/bootstrap.min.js'></script>
+	<script src='/bower_components/maskjs/lib/mask.js'></script>
+	<script src='/lib/form.js'></script>
+	<script type='text/mask' data-run="true">
+		import from '~[sample]';
+	</script>
+	<script type='application/javascript'>
+		var app = mask.run({
+			sample: window.location.search.substring(1),
+			description: 'Lorem ipsum',
+			someString: 'Foo',
+			someNumber: 20,
+			someBoolean: false,
+			someRadio: 'A'
+		});
+		
+	</script>
+</body>
+</html>
