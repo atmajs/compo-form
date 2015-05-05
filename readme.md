@@ -100,7 +100,9 @@ a:form action='user/~[id]' method='PUT' get form-type=horizontal offset=4;
 
 All editors have `dualbind` component, sothat they are bound to the model with a two-way data model binding type.
 
-###### Input
+***
+
+#### Input
 
 **_Attributes_**:
 
@@ -128,7 +130,7 @@ a:form {
 
 ***
 
-###### Text
+#### Text
 
 `textarea`
 
@@ -150,7 +152,7 @@ a:form {
 
 ***
 
-###### Checkbox
+#### Checkbox
 **_Attributes_**:
 
 - `property` (_required_): Value in a model to edit
@@ -177,7 +179,7 @@ a:form {
 
 ***
 
-###### Radio
+#### Radio
 **_Attributes_**:
 
 - `property` (_required_): Value in a model to edit
@@ -202,7 +204,7 @@ a:form {
 
 ***
 
-###### Select
+#### Select
 **_Attributes_**:
 
 - `property` (_required_): Value in a model to edit
@@ -227,7 +229,7 @@ a:form {
 
 ***
 
-###### Template
+#### Template
 Use to define any other nested components and templates within the form layout
 
 **_Placeholders_**:
@@ -240,6 +242,7 @@ Use to define any other nested components and templates within the form layout
 		}
 	}
 	```
+	
 ***
 
 ### Ui
