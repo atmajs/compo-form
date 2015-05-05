@@ -9,7 +9,7 @@ var Validation;
 				if (name === ':dualbind' || name === 'dualbind') {
 					error = compo.provider.validate();
 					if (error) {
-						return { cursor: 'break' };
+						return { 'break': true };
 					}
 				}
 				
@@ -17,7 +17,7 @@ var Validation;
 				if (fn != null) {
 					error = fn.call(compo);
 					if (error) {
-						return { cursor: 'break' };
+						return { 'break': true };
 					}
 				}
 			});
