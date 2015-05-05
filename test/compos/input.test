@@ -21,6 +21,8 @@ UTest({
 					has ('.col-sm-9');
 					find ('input.foo_someString') {
 						val Foo;
+						
+						do select (2, 2);
 						do type Baz;
 						
 						val FooBaz;

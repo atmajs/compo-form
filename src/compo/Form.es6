@@ -10,7 +10,8 @@ var FormDataCompo = mask.Compo({
 			'offset': 0,
 			'method': 'POST',
 			'action': window.location.href,
-			'get': ''
+			'get': '',
+			'redirect': null
 		}
 	},
 	attr: {
@@ -20,7 +21,9 @@ var FormDataCompo = mask.Compo({
 		submit: 'submit'
 	},
 	events: {
-		submit: 'submit'
+		submit (event) {
+			return event.preventDefault();
+		}
 	},
 	scope: {
 		notificationMsg: '',
@@ -88,7 +91,13 @@ var FormDataCompo = mask.Compo({
 			.upload(message)
 			.fail(error => this.errored_(error))
 			.done(json => {
-				this.notify('success', 'Upload complete');
+				this.notify('success', 'OK');
+				if (this.xRedirect) {
+					this.notify('success', 'OK. Redirecting...');
+					window.location.href = this.xRedirect;
+					return;
+				}
+				
 				this.activity('end', 'upload', json);
 			});
 	},

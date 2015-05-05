@@ -2,7 +2,7 @@ module.exports = {
 	suites:{
 		examples: {
 			exec: 'dom',
-			tests: 'test/**.test'
+			tests: 'test/compos/**.test'
 		}
 	}
 };
