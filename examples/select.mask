@@ -1,8 +1,0 @@
-a:form type=horizontal {
-
-	Select property=someRadio {
-		@Option value='A' > 'One: A'
-		@Option value='B' > 'Two: B'
-		@Option value='C' > 'Three: C'
-	}
-}
