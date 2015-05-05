@@ -11,7 +11,7 @@ var FormDataCompo = mask.Compo({
 			'method': 'POST',
 			'action': window.location.href,
 			'get': '',
-			'redirect': null
+			'redirect': ''
 		}
 	},
 	attr: {

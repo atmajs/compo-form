@@ -23,7 +23,7 @@ a:form;
 	- [Input](#input)
 	- [Template](#template)
 	
-	##### Ui
+	#### Ui
 	- [Progress](#progress)
 	- [Notification](#notification)
 
@@ -36,6 +36,7 @@ a:form;
 - `content-type` Default is `application/json`. Accepts also: `multipart/form-data`
 - `form-type` Default is ''. Accepts also `horizontal`, `inline`. Refer to the [Bootstrap Forms](http://getbootstrap.com/css/#forms)
 - `offset`. Default is 0. When form type is `horizontal` this attribute defines the `col` size for labels.
+- `redirect`. Default is _empty_. When form successfully submits the data it will redict the page to the specified url.
 
 _Mask interpolation are also supported_
 
@@ -71,9 +72,9 @@ a:form action='user/~[id]' method='PUT' get form-type=horizontal offset=4;
 - `load(url)` Loads the model from remote and apply it to the form. This method is automaticaly called on render start, when `get` attribute is defined.
 - `notify(type, message)` Notifies about any status changes
 
-### Signals
+## Signals
 
-`a:form` componenent emits signals to children on various states
+`a:form` componenent emits signals to **children** on various states
 
 - `formActivity(type, ...args)`
 
@@ -86,12 +87,12 @@ a:form action='user/~[id]' method='PUT' get form-type=horizontal offset=4;
 	
 - `formNotification(notification: Object<type, message>`
 
-### Slots
+## Slots
 
 - `submit` Starts uploading data on the signal
 
 
-### Components
+## Components
 
 `a:form` defines some nested components. Each component is placed in a template: [ItemLayout](src/compo/ItemLayout.mask)
 
@@ -101,7 +102,7 @@ All editors have `dualbind` component, sothat they are bound to the model with a
 
 ###### Input
 
-Attributes:
+**_Attributes_**:
 
 - `property` (_required_): Value in a model to edit
 - `type` (_optional_): HtmlInput type value: 'string/number/email/etc'
@@ -114,7 +115,7 @@ a:form {
 }
 ```
 
-Placeholders:
+**_Placeholders_**:
 - `@label` (_optional_) Defines nodes for the `label` in a `.form-group`
 
 	```mask
@@ -125,11 +126,13 @@ Placeholders:
 	}
 	```
 
+***
+
 ###### Text
 
 `textarea`
 
-Attributes:
+**_Attributes_**:
 
 - `property` (_required_): Value in a model to edit
 - `placeholder` (_optional_): HtmlInput placeholder
@@ -142,11 +145,13 @@ a:form {
 }
 ```
 
-Placeholders:
+**_Placeholders_**:
 - `@label` (_optional_)
 
+***
+
 ###### Checkbox
-Attributes:
+**_Attributes_**:
 
 - `property` (_required_): Value in a model to edit
 - `text` (_required_): Input's label text
@@ -159,7 +164,7 @@ a:form {
 ```
 
 
-Placeholders:
+**_Placeholders_**:
 - `@label` (_optional_) Defines nodes for the `label` in a `.form-group`
 
 	```mask
@@ -170,13 +175,15 @@ Placeholders:
 	}
 	```
 
+***
+
 ###### Radio
-Attributes:
+**_Attributes_**:
 
 - `property` (_required_): Value in a model to edit
 - `class` (_optional_): Css class names
 
-Placeholders:
+**_Placeholders_**:
 - `@Option` (_required_) Defines each `Option` for the radio group
 
 	```mask
@@ -193,14 +200,15 @@ Placeholders:
 	```
 - `@label` (_optional_)
 
+***
 
 ###### Select
-Attributes:
+**_Attributes_**:
 
 - `property` (_required_): Value in a model to edit
 - `class` (_optional_): Css class names
 
-Placeholders:
+**_Placeholders_**:
 - `@Option` (_required_) Defines each `Option` for the radio group
 
 	```mask
@@ -217,11 +225,12 @@ Placeholders:
 	```
 - `@label` (_optional_)
 
+***
 
 ###### Template
 Use to define any other nested components and templates within the form layout
 
-Placeholders:
+**_Placeholders_**:
 - `@template` (_required_)
 
 	```mask
@@ -231,6 +240,7 @@ Placeholders:
 		}
 	}
 	```
+***
 
 ### Ui
 

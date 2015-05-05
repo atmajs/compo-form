@@ -22,10 +22,10 @@ UTest({
 					find ('input.foo_someString') {
 						val Foo;
 						
-						do select (2, 2);
+						do select (0, 0);
 						do type Baz;
 						
-						val FooBaz;
+						val BazFoo;
 					}
 				}
 			`)
