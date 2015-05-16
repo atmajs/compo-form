@@ -21,6 +21,7 @@ a:form;
 	- [Select](#select)
 	- [Text](#text)
 	- [Input](#input)
+	- [Array](#array)
 	- [Template](#template)
 	
 	#### Ui
@@ -226,6 +227,26 @@ a:form {
 	}
 	```
 - `@label` (_optional_)
+
+***
+
+#### Array
+
+Edit the arrays: edit items, add items, remove items.
+
+- [Example](examples/array.mask)
+
+Slots:
+- `arrayItemAdd`
+- `arrayItemRemove`
+
+Attributes:
+- `property`: Property of an array in a model to edit
+
+Placeholders:
+- `@template` is a template for each item
+- `@header` is a template to be rendered **before** the list
+- `@footer` is a template to be rendered **after** the list
 
 ***
 

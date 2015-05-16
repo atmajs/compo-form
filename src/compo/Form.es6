@@ -12,7 +12,8 @@ var FormDataCompo = mask.Compo({
 			'action': window.location.href,
 			'get': '',
 			'redirect': ''
-		}
+		},
+		template: 'merge'
 	},
 	attr: {
 		style: 'position: relative;'
@@ -49,6 +50,8 @@ var FormDataCompo = mask.Compo({
 	},
 	
 	onRenderStart (model, ctx) {
+		this.model = model;
+		this.ensureReflect_();
 		this.ensureCompo_('Notification');
 		this.ensureCompo_('Progress');
 		this.formLayout_();
@@ -60,7 +63,7 @@ var FormDataCompo = mask.Compo({
 			this.model = null;
 			return this.load(endpoint);
 		}
-		if (model == null) {
+		if (this.model == null) {
 			this.model = {};
 		}
 	},
@@ -118,11 +121,20 @@ var FormDataCompo = mask.Compo({
 		}
 		jmask(this).prepend(name);
 	},
+	ensureReflect_ () {
+		var children = jmask(this).children();
+		if (children.length === 0) {
+			jmask(this).prepend('Reflect');
+		}
+	},
 	
 	formLayout_ () {
 		var klass = 'form';
 		if (this.xFormType) {
 			klass += '-' + this.xFormType;
+			if (this.xOffset === 0 && this.xFormType === 'horizontal') {
+				this.xOffset = 1;
+			}
 		}
 		jmask(this)
 			.addClass(klass)
@@ -158,6 +170,7 @@ var FormDataCompo = mask.Compo({
 });
 
 var Template = `
+	// import Array.mask
 	// import Checkbox.mask
 	// import Input.mask
 	// import Select.mask
@@ -166,7 +179,10 @@ var Template = `
 	// import Notification.mask
 	// import Progress.mask
 	// import Template.mask
+	// import Hidden.mask
 	// import ItemLayout.mask
 `;
 
 mask.registerFromTemplate(Template, FormDataCompo);
+
+// import Reflect.es6

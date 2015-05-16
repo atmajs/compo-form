@@ -1,8 +1,13 @@
-a:form type=horizontal {
-
-	Select property=someRadio {
-		@Option value='A' > 'One: A'
-		@Option value='B' > 'Two: B'
-		@Option value='C' > 'Three: C'
+define Foo {
+	a:form form-type=horizontal {
+		Select property=someRadio {
+			@label > 'Foo'
+			
+			@option value='A' > 'One: A'
+			@option value='B' > 'Two: B'
+			@option value='C' > 'Three: C'
+		}
 	}
 }
+
+Foo;
