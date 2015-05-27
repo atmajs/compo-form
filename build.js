@@ -13,8 +13,8 @@ module.exports = {
 				}
 			}
 		},
-		files: 'builds/lazy.js',
-		output: 'lib/lazy.min.js'
+		files: 'builds/form.js',
+		output: 'lib/form.min.js'
 	},
 
 	'watch': {
