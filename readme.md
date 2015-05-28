@@ -251,7 +251,10 @@ Placeholders:
 ***
 
 #### Template
-Use to define any other nested components and templates within the form layout
+
+Wraps nested nodes in the [ItemLayout](src/compo/ItemLayout.mask). 
+
+> Otherwise you can place any mask nodes inside the `a:form` component
 
 **_Placeholders_**:
 - `@template` (_required_)
@@ -274,9 +277,21 @@ Use to define any other nested components and templates within the form layout
 
 See the implementation at [Notification.mask](/src/compo/Notification.mask)
 
+_**How to override**_
+
+```javascript
+mask.define('a:form', `
+	let Notification {
+		.my-status {
+			h4 > '~[bind: $scope.notificationMsg ]'
+		}
+	}
+`)
+```
+
 ##### Progress
 
-See the implementation at [Notification.mask](/src/compo/Progress.mask)
+See the implementation at [Progress.mask](/src/compo/Progress.mask)
 
 
 ## Examples
