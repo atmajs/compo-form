@@ -43,9 +43,15 @@ a:form;
 - `method-edit` Default is `PUT`. 
 - `get` (`String or just a flag`). If specified, the component will load the model from the endpoint with the `GET` http method. When no endpoint is set then the `action` is used.  Suppors **dynamic** Entity Key definition.
 - `content-type` Default is `application/json`. Accepts also: `multipart/form-data`
-- `form-type` Default is ''. Accepts also `horizontal`, `inline`. Refer to the [Bootstrap Forms](http://getbootstrap.com/css/#forms)
-- `offset`. Default is 0. When form type is `horizontal` this attribute defines the `col` size for labels.
+- `form-type` Default is `''`. Accepts also `horizontal`, `inline`. Refer to the [Bootstrap Forms](http://getbootstrap.com/css/#forms)
+- `offset`. Default is `0`. When form type is `horizontal` this attribute defines the `col` size for labels.
 - `redirect`. Default is _empty_. When form successfully submits the data it will redict the page to the specified url.
+
+- `model-detached` (Default is `false`) :muscle:
+
+	> The component creates its own model scope and set the to edit model to the `entity` property.
+	
+	_This flag defines if the model should be **shallow**-copied before setting to the `entity` property_
 
 _Mask interpolation are also supported._
 
@@ -79,6 +85,10 @@ a:form action='/user/~[userId]' method='PUT' get form-type=horizontal offset=4;
 	```
 	
 	Per default `a:form` sends json data. But if `multipart/form-data` is set for the content-type, then Json is tranformed to `FormData` instance. So you can upload also images and other binaries.
+
+- `setEntity(obj)` Set the new model and refresh the component
+
+- `getEntity()` Get current components model
 
 - `load(url)` Loads the model from remote and apply it to the form. This method is automaticaly called on render start, when `get` attribute is defined.
 - `notify(type, message)` Notifies about any status changes

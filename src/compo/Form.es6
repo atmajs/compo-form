@@ -14,6 +14,7 @@ var FormDataCompo = mask.Compo({
 			'offset': 0,
 			'method': 'POST',
 			'method-edit': 'PUT',
+			'detached-model': false,
 			'action': window.location.href,
 			'get': '',
 			'redirect': ''
@@ -56,15 +57,18 @@ var FormDataCompo = mask.Compo({
 	
 	onRenderStart (model_, ctx) {
 		var model = model_ || {};
-		
-		this.model = this.entity = model;
+		this.model = {
+			entity: model
+		};		
 		
 		this.ensureReflect_();
 		this.ensureCompo_('Notification');
 		this.ensureCompo_('Progress');
-		this.formLayout_();
+		this.formLayout_();		
+		this.nodes = mask.jmask('+with (entity)').append(this.nodes);
+		
 		if (this.xGet) {
-			this.model = this.entity = null;
+			this.model.entity = null;
 			return this.load(
 				Transport.getGetterEndpoint(this, model)
 			);
@@ -72,16 +76,23 @@ var FormDataCompo = mask.Compo({
 	},
 	
 	setEntity (model) {
-		this.entity = model;		
-		if (this.model == null) {
-			this.model = model;
+		this.entity = model;
+		
+		if (this.xDetachedModel === false) {
+			this.model.entity = model;
 			return;
 		}
-		mask.obj.extend(this.model, model);
+		
+		var obj = this.model.entity || {};		
+		mask.obj.extend(obj, model);
+		
+		if (this.model.entity == null) {
+			this.model.entity = obj;
+		}
 	},
 	
 	getEntity () {
-		return this.entity || this.model;
+		return this.entity || this.model.entity;
 	},
 	
 	load (url) {

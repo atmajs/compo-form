@@ -22,17 +22,29 @@ var Builder;
 	
 	
 	function getJson (formCompo) {
-		var model = formCompo.model
-		var data = mask.obj.extend({}, model);
+		var entity = formCompo.model.entity,
+			model = toJson(entity, true),
+			data = mask.obj.extend({}, model)
+			;
 		
 		compo_walk(formCompo, compo => {
-			var fn = compo.toJson || compo.toJSON;
-			if (fn) {
-				var json = fn.call(compo);
+			var json = toJson(compo, false);
+			if (json) {
 				mask.obj.extend(data, json);
 				return { deep: false };
 			}
 		});
 		return data;
+	}
+	
+	function toJson(mix, isSelf) {
+		if (mix == null) {
+			return null;
+		}
+		var fn = mix.toJson || mix.toJSON;
+		if (fn == null) {
+			return isSelf ? mix : null;
+		}
+		return fn.call(mix);
 	}
 }());
