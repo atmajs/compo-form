@@ -17,6 +17,7 @@
 	// import utils/obj.es6
 	// import utils/form.es6
 	// import utils/compo.es6
+	// import utils/path.es6
 	
 	// import class/Xhr.es6
 	// import class/Actor.es6

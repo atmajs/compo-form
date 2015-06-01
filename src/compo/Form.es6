@@ -3,12 +3,17 @@ var FormDataCompo = mask.Compo({
 	
 	builder: null,
 	transport: null,
+	
+	model: null,
+	entity: null,
+	
 	meta: {
 		attributes: {
 			'form-type': '',
 			'content-type': 'application/json',
 			'offset': 0,
 			'method': 'POST',
+			'method-edit': 'PUT',
 			'action': window.location.href,
 			'get': '',
 			'redirect': ''
@@ -49,23 +54,34 @@ var FormDataCompo = mask.Compo({
 		}
 	},
 	
-	onRenderStart (model, ctx) {
-		this.model = model;
+	onRenderStart (model_, ctx) {
+		var model = model_ || {};
+		
+		this.model = this.entity = model;
+		
 		this.ensureReflect_();
 		this.ensureCompo_('Notification');
 		this.ensureCompo_('Progress');
 		this.formLayout_();
 		if (this.xGet) {
-			var endpoint = this.xGet === 'get' || this.xGet === true
-				? this.xAction
-				: this.xGet;
-			
-			this.model = null;
-			return this.load(endpoint);
+			this.model = this.entity = null;
+			return this.load(
+				Transport.getGetterEndpoint(this, model)
+			);
 		}
+	},
+	
+	setEntity (model) {
+		this.entity = model;		
 		if (this.model == null) {
-			this.model = {};
+			this.model = model;
+			return;
 		}
+		mask.obj.extend(this.model, model);
+	},
+	
+	getEntity () {
+		return this.entity || this.model;
 	},
 	
 	load (url) {
@@ -74,7 +90,7 @@ var FormDataCompo = mask.Compo({
 			.fail(error => this.errored_(error))
 			.done(model => {
 				this.activity('end', 'load', model);
-				this.updateModel_(model);
+				this.setEntity(model);
 			});
 	},
 	
@@ -143,17 +159,6 @@ var FormDataCompo = mask.Compo({
 			;		
 	},
 	
-	
-	
-	updateModel_ (model) {
-		if (this.model == null) {
-			this.model = model;
-			return;
-		}
-		for (var key in model){
-			this.model[key] = model[key];
-		}
-	},
 	throw_ (error) {
 		this.nodes = mask.parse(`
 			div style='background: red; color: white; padding: 15px; font-weight: bold' {

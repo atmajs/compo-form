@@ -31,20 +31,30 @@ a:form;
 
 ### Attributes
 
-- `action` Default is the current location. Endpoint to submit the form data.
-- `method` Default is `POST`. Http Method.
-- `get` (`String or just a flag`). If specified, the component will load the model from the endpoint. When no endpoint is set then the `action` is used, with the `GET` http method.
+- `action` Default is the current location. Endpoint to submit the form data to. Suppors **dynamic** Entity Key definition.
+
+	```mask
+	a:form action='/user/:userId';
+	```
+	
+	> Now, when the model has the `userId` property, then the proper endpoint url is generated and the "edit" `method` is used. Otherwise the model is submited to the `/user` endpoint with the `POST` method.
+
+- `method` Default is `POST` Http Method.
+- `method-edit` Default is `PUT`. 
+- `get` (`String or just a flag`). If specified, the component will load the model from the endpoint with the `GET` http method. When no endpoint is set then the `action` is used.  Suppors **dynamic** Entity Key definition.
 - `content-type` Default is `application/json`. Accepts also: `multipart/form-data`
 - `form-type` Default is ''. Accepts also `horizontal`, `inline`. Refer to the [Bootstrap Forms](http://getbootstrap.com/css/#forms)
 - `offset`. Default is 0. When form type is `horizontal` this attribute defines the `col` size for labels.
 - `redirect`. Default is _empty_. When form successfully submits the data it will redict the page to the specified url.
 
-_Mask interpolation are also supported_
+_Mask interpolation are also supported._
 
 ```mask
 // load the User model and display the form for it
-a:form action='user/~[id]' method='PUT' get form-type=horizontal offset=4;
+a:form action='/user/~[userId]' method='PUT' get form-type=horizontal offset=4;
 ```
+
+> The example is similar to the **dynamic** Entity Key. But here we predefine the endpoint to be editable only.
 
 ### Api
 

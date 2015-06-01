@@ -6,7 +6,12 @@ var Builder;
 				contentType = params.contentType || formCompo.xContenType,
 				endpoint = params.action || formCompo.xAction,
 				method = params.method || formCompo.xMethod;
-				
+			
+			if (path_hasInterpolation(endpoint)) {
+				endpoint = path_interpolate(endpoint, body);
+				method = params.methodEdit || formCompo.xMethodEdit;
+			}
+			
 			return new Message(body, {
 				contentType,
 				endpoint,
@@ -14,6 +19,7 @@ var Builder;
 			});
 		}
 	};
+	
 	
 	function getJson (formCompo) {
 		var model = formCompo.model

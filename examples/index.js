@@ -9,7 +9,8 @@
 			app.config.server.handlers = {
 				'^/echo/' : EchoHandler,
 				'^/error/' : ErrorHandler,
-				'^/foo/' : FooService
+				'^/foo/' : FooService,
+				'^/entity/': EntityService,
 			};
 
 			app
@@ -60,5 +61,22 @@
 		}
 	});
 	
+	var EntityService = server.HttpService({
+		meta: {
+			headers: {
+				'Access-Control-Allow-Origin': '*',
+				'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
+			}
+		},
+		'/:id': function (req, res, params) {
+			
+			this.resolve({
+				someString: 'Requested With ' + params.id
+			}, 200, 'application/json', {
+				'Access-Control-Allow-Origin': '*',
+				'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
+			});
+		}
+	});
 	
 }());

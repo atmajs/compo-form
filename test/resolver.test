@@ -1,0 +1,29 @@
+UTest({
+	$config: {
+		'http.process': {
+			command: 'npm run examples',
+			matchReady: '/Listen /'
+		}
+	},
+	$before (next) {
+		UTest
+			.server
+			.request('http://localhost:5771/examples/index.html?resolver')
+			.done((doc, win) => {
+				next(doc, win);
+			});
+	},
+	'proper model' (done, doc, win) {
+		UTest
+			.domtest(doc.body, `
+				find ('.byAction input') {
+					val ('Requested With foo');
+				}
+				find ('.byDynamicProperty input') {
+					val ('Requested With 20');
+				}
+			`)
+			.always(() => done(doc, win));
+	},
+	
+})
