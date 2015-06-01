@@ -31,20 +31,27 @@ a:form;
 
 ### Attributes
 
-- `action` Default is the current location. Endpoint to submit the form data to. Suppors **dynamic** Entity Key definition.
+- `action` Default is the current location. Endpoint to submit the form data to. 
 
+	> Supports also **dynamic** entity key definition, e.g.:
 	```mask
 	a:form action='/user/:userId';
 	```
-	
-	> Now, when the model has the `userId` property, then the proper endpoint url is generated and the "edit" `method` is used. Otherwise the model is submited to the `/user` endpoint with the `POST` method.
+	Now, when the model has the `userId` property, then the proper endpoint url is generated and the "edit" `method` is used. Otherwise the model is submited to the `/user` endpoint with the `POST` method.
 
-- `method` Default is `POST` Http Method.
+- `method` Default is `POST`. Http Method.
+
 - `method-edit` Default is `PUT`. 
-- `get` (`String or just a flag`). If specified, the component will load the model from the endpoint with the `GET` http method. When no endpoint is set then the `action` is used.  Suppors **dynamic** Entity Key definition.
+
+- `get` (`String or just a flag`). If specified, the component will load the model from the endpoint with the `GET` http method.
+When `get` is just a flag, then the `action` value is used.  Supports **dynamic** entity key definition.
+
 - `content-type` Default is `application/json`. Accepts also: `multipart/form-data`
+
 - `form-type` Default is `''`. Accepts also `horizontal`, `inline`. Refer to the [Bootstrap Forms](http://getbootstrap.com/css/#forms)
-- `offset`. Default is `0`. When form type is `horizontal` this attribute defines the `col` size for labels.
+
+- `offset`. Default is `0`. When the form type is `horizontal` this attribute defines the `col` size for labels.
+
 - `redirect`. Default is _empty_. When form successfully submits the data it will redict the page to the specified url.
 
 - `model-detached` (Default is `false`) :muscle:
