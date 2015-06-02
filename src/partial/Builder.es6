@@ -17,6 +17,9 @@ var Builder;
 				endpoint,
 				method
 			});
+		},
+		gtJson (formCompo) {
+			return getJson(formCompo);
 		}
 	};
 	

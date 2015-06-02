@@ -60,6 +60,10 @@ When `get` is just a flag, then the `action` value is used.  Supports **dynamic*
 	
 	_This flag defines if the model should be **shallow**-copied before setting to the `entity` property_
 
+- `in-memory` (Default is `false`)
+
+	> Only `complete` signal is emited without uploading to the endpoint
+
 _Mask interpolation are also supported._
 
 ```mask
@@ -67,7 +71,7 @@ _Mask interpolation are also supported._
 a:form action='/user/~[userId]' method='PUT' get form-type=horizontal offset=4;
 ```
 
-> The example is similar to the **dynamic** Entity Key. But here we predefine the endpoint to be editable only.
+> The example is similar to the **dynamic** entity key. But here we predefine the endpoint to be editable only.
 
 ### Api
 
@@ -110,7 +114,8 @@ a:form action='/user/~[userId]' method='PUT' get form-type=horizontal offset=4;
 	
 	- `start`
 	- `progress`: plus arguments `'load|upload', percent`
-	- `end`
+	- `end`: variations `('end', 'upload', json)`, `('end', 'load', json)`
+	- `complete`: plus arguments `json`. When not in-memory flag is used then is equivalent to `('end', 'upload', json)`
 	- `error`: plus arguments `Error`
 	
 - `formNotification(notification: Object<type, message>`

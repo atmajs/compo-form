@@ -17,7 +17,8 @@ var FormDataCompo = mask.Compo({
 			'detached-model': false,
 			'action': window.location.href,
 			'get': '',
-			'redirect': ''
+			'redirect': '',
+			'in-memory': false
 		},
 		template: 'merge'
 	},
@@ -64,8 +65,11 @@ var FormDataCompo = mask.Compo({
 		this.ensureReflect_();
 		this.ensureCompo_('Notification');
 		this.ensureCompo_('Progress');
-		this.formLayout_();		
-		this.nodes = mask.jmask('+with (entity)').append(this.nodes);
+		this.formLayout_();
+		
+		var $with = mask.jmask('+with (entity) > div');		
+		$with.children().append(this.nodes);
+		this.nodes = $with;
 		
 		if (this.xGet) {
 			this.model.entity = null;
@@ -77,6 +81,7 @@ var FormDataCompo = mask.Compo({
 	
 	setEntity (model) {
 		this.entity = model;
+		this.notify();
 		
 		if (this.xDetachedModel === false) {
 			this.model.entity = model;
@@ -114,6 +119,11 @@ var FormDataCompo = mask.Compo({
 			this.errored_(new ValidationError(error));
 			return;
 		}
+		if (this.xInMemory) {
+			var json = Builder.getJson(this);
+			this.emitOut('complete', json);
+			return;
+		}
 		var message = Builder.createMessage(this);
 		
 		this.activity('start');
@@ -129,6 +139,7 @@ var FormDataCompo = mask.Compo({
 				}
 				
 				this.activity('end', 'upload', json);
+				this.emitOut('complete', json);
 			});
 	},
 	
