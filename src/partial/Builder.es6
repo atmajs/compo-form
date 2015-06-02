@@ -18,9 +18,7 @@ var Builder;
 				method
 			});
 		},
-		gtJson (formCompo) {
-			return getJson(formCompo);
-		}
+		getJson: getJson
 	};
 	
 	
