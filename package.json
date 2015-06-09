@@ -1,6 +1,6 @@
 {
   "name": "",
-  "version": "0.9.6",
+  "version": "0.9.7",
   "devDependencies": {
     "atma": ">0.9.26",
     "atma-loader-babel": "latest",
