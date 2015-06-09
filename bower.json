@@ -19,6 +19,7 @@
   ],
   "dependencies": {
     "maskjs": "~0.12.22",
-    "bootstrap": "~3.3.4"
+    "bootstrap": "~3.3.4",
+    "darkroomjs": "git+https://github.com/tenbits/darkroomjs.git#e397182ad24b484208d95d8a1147314464ad982d"
   }
 }

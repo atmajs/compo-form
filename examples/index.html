@@ -6,10 +6,12 @@
 	
 	<script src='/bower_components/jquery/dist/jquery.min.js'></script>
 	<script src='/bower_components/bootstrap/dist/js/bootstrap.min.js'></script>
-	<script src='/bower_components/maskjs/lib/mask.js'></script>
+	<script src='/bower_components/maskjs/lib/mask.js'></script>	
 	<script src='/lib/form.js'></script>
 	<script type='text/mask' data-run="true">
-		import from '~[sample]';
+		.container {
+			import from 'samples/~[sample]';
+		}
 	</script>
 	<script type='application/javascript'>
 		var app = mask.run({

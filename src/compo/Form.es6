@@ -110,6 +110,9 @@ var FormDataCompo = mask.Compo({
 			});
 	},
 	
+	toJson () {
+		return Builder.getJson(this);
+	},
 	upload () {
 		if (this.xhr && this.xhr.isBusy()) {
 			return;
@@ -196,20 +199,22 @@ var FormDataCompo = mask.Compo({
 	}
 });
 
-var Template = `
-	// import Array.mask
-	// import Checkbox.mask
-	// import Input.mask
-	// import Select.mask
-	// import Radio.mask
-	// import Text.mask
-	// import Notification.mask
-	// import Progress.mask
-	// import Template.mask
-	// import Hidden.mask
-	// import ItemLayout.mask
-`;
-
-mask.registerFromTemplate(Template, FormDataCompo);
-
 // import Reflect.es6
+
+var Template = `
+	// import Controls/ItemLayout.mask
+	// import Controls/Notification.mask
+	// import Controls/Progress.mask
+	// import Controls/Dialog.mask
+	
+	// import Editors/Array.mask
+	// import Editors/Checkbox.mask
+	// import Editors/Input.mask
+	// import Editors/Select.mask
+	// import Editors/Radio.mask
+	// import Editors/Text.mask
+	// import Editors/Template.mask
+	// import Editors/Hidden.mask
+	// import Editors/Image.mask
+`;
+mask.define(FormDataCompo, Template);

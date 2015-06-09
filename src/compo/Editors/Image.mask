@@ -1,0 +1,38 @@
+let Image {
+	
+	function onRenderStart (model) {
+		var val = mask.obj.get(model, this.attr.property);
+		
+		this.model = {
+			url: val || 'http://placehold.it/200x100',
+			blob: null
+		};
+	}
+	
+	function toJson () {		
+		if (this.model.blob == null) {
+			return;
+		}
+		var obj = {};
+		mask.obj.set(obj, this.attr.property, this.model.blob);
+		return obj;
+	}
+	
+	slot updateImage (event) {
+		var file = event.target.files[0];
+		this.model.url = URL.createObjectURL(file);
+		this.model.blob = file;
+		return false;
+	}
+	
+	include ItemLayout {
+		@element {
+			table {
+				tr > td > img src='~[bind: url]' style='max-width:200px; max-height: 100px;';
+				tr > td {
+					input type='file' x-signal='change: updateImage';
+				}
+			}
+		}
+	}
+}

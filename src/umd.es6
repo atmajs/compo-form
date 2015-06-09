@@ -18,6 +18,7 @@
 	// import utils/form.es6
 	// import utils/compo.es6
 	// import utils/path.es6
+	// import utils/img.es6
 	
 	// import class/Xhr.es6
 	// import class/Actor.es6
@@ -29,9 +30,7 @@
 	// import partial/Validation.es6
 	// import partial/Builder.es6
 	
-	
 	// import compo/Form.es6
-	
+
 	mask.registerHandler('a:form', FormDataCompo);
-	//mask.registerHandler('a:form:json', FormJsonCompo);
 }));

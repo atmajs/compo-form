@@ -1,4 +1,4 @@
-mask.registerHandler(FormDataCompo, 'Reflect', {
+mask.define(FormDataCompo, 'Reflect', {
 	type: mask.Dom.COMPONENT,
 	renderStart () {
 		var set = jmask(this);
@@ -31,4 +31,4 @@ mask.registerHandler(FormDataCompo, 'Reflect', {
 			return jmask(name).attr(attr).append(label)
 		}
 	}
-})
+});

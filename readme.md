@@ -14,7 +14,7 @@ a:form;
 - [Slots](#slots)
 - [Components](#components)
 	
-	#### Editors
+	#### Input Elements
 	- [Input](#input)
 	- [Checkbox](#checkobx)
 	- [Radio](#radio)
@@ -22,6 +22,7 @@ a:form;
 	- [Text](#text)
 	- [Input](#input)
 	- [Array](#array)
+	- [Image](#image)
 	- [Template](#template)
 	
 	#### Ui
@@ -129,7 +130,7 @@ a:form action='/user/~[userId]' method='PUT' get form-type=horizontal offset=4;
 
 `a:form` defines some nested components. Each component is placed in a template: [ItemLayout](src/compo/ItemLayout.mask)
 
-### Editors
+### Input Elements
 
 All editors have `dualbind` component, sothat they are bound to the model with a two-way data model binding type.
 
@@ -237,7 +238,7 @@ a:form {
 
 ***
 
-#### Select
+#### `Select`
 **_Attributes_**:
 
 - `property` (_required_): Value in a model to edit
@@ -258,6 +259,24 @@ a:form {
 		}
 	}
 	```
+- `@label` (_optional_)
+
+***
+
+#### `Image`
+
+**_Attributes_**:
+
+- `property` (_required_): Value in a model to edit
+
+```mask
+a:form {
+	Image property='avatar';
+}
+```
+
+**_Placeholders_**:
+
 - `@label` (_optional_)
 
 ***
