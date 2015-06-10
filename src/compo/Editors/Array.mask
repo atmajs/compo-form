@@ -1,7 +1,12 @@
 let Array {
 	
 	function getArray () {
-		return mask.obj.get(this.model, this.attr.property);
+		var arr = mask.obj.get(this.model, this.attr.property);
+		if (arr == null) {
+			arr = [];
+			mask.obj.set(this.model, this.attr.property, arr);
+		}
+		return arr;
 	}
 	
 	slot arrayItemRemove (event) {

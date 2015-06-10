@@ -2,8 +2,13 @@ let Select {
 	include ItemLayout {
 		@element {			
 			select .form-control {
-				@each (option) > option value='@attr.value' {
-					@placeholder;
+				@if (option) {
+					@each (option) > option value='@attr.value' {
+						@placeholder;
+					}
+				}
+				@if (template) {
+					@template;
 				}
 				dualbind value='@attr.property';
 			}
