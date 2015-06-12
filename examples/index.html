@@ -9,8 +9,30 @@
 	<script src='/bower_components/maskjs/lib/mask.js'></script>	
 	<script src='/lib/form.js'></script>
 	<script type='text/mask' data-run="true">
-		.container {
-			import from 'samples/~[sample]';
+		if (sample) {
+			.container {
+				import from 'samples/~[sample]';
+			}
+		} else {
+			h3 > 'Please select one of the example:'
+			
+			var examples = [
+				{ name: 'input', title: 'Input' },
+				{ name: 'checkbox', title: 'Checkbox' },
+				{ name: 'radio', title: 'Radio' },
+				{ name: 'select', title: 'Select' },
+				{ name: 'text', title: 'Text' },
+				{ name: 'array', title: 'Array' },
+				{ name: 'resolver', title: 'Resolver' },
+				{ name: 'submit', title: 'Submit' },
+				{ name: 'validation', title: 'Validation' },
+			];
+			
+			each ($scope.examples) {
+				ul {
+					li > a href='index.html?~[name]' > '~[title]'
+				}
+			}
 		}
 	</script>
 	<script type='application/javascript'>
@@ -20,7 +42,8 @@
 			someString: 'Foo',
 			someNumber: 20,
 			someBoolean: false,
-			someRadio: 'A'
+			someRadio: 'A',
+			myImage: 'http://placehold.it/201x201'
 		});
 		
 	</script>

@@ -6,7 +6,7 @@ define MakeInvalid {
 define Model {
 	function onRenderStart () {
 		this.model = {
-			foo: 'Hello',
+			foo: 'OnlyLetters',
 			Validate: {
 				foo: function(val){
 					return /^[a-zA-Z]+$/.test(val) ? null : 'Only characters';
@@ -21,14 +21,12 @@ define Model {
 
 
 Model > a:form type=horizontal {
-	Validation > @template {
-		h4 > 'Error: ~[bind: $scope.errorMsg ]'
-	}
+	
 	Template > @template {
 		h4    > 'Simple:'
 		input > dualbind value=foo;
 		
-		MakeInvalid;
+		div > div > MakeInvalid;
 	}
-	button tap='submit' > 'Submit'
+	button x-tap='submit' > 'Submit'
 }

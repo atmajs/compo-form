@@ -1,3 +1,5 @@
+blockuote > em > 'Binded to same properties'
+
 h4 > 'Success'
 a:form .someSuccess action='/echo/foo' {
 	Input property='someString';
