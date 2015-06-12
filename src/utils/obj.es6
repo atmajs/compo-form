@@ -1,5 +1,6 @@
 var obj_toFlatObject,
-	obj_getType;
+	obj_getType,
+	obj_clone;
 (function(){
 	
 	obj_getType = function (obj) {
@@ -11,6 +12,38 @@ var obj_toFlatObject,
 			.replace(']', '')
 			;
 	};
+	
+	(function() {
+		obj_clone = function (obj) {
+			if (obj == null || typeof obj !== 'object') 
+				return obj;
+			
+			var type = obj_getType(obj),
+				clone;
+			
+			if ('Date' === type) {
+				return new Date(obj);
+			}
+			if ('Array' === type) {
+				clone = [];
+				var i = -1,
+					imax = obj.length;
+				while(++i < imax){
+					clone[i] = obj_clone(obj[i]);
+				}
+				return clone;
+			}
+			if ('Object' === type) {
+				clone = {};
+				for(var key in obj){
+					clone[key] = obj_clone(obj[key]);
+				}
+				return clone;
+			}
+			return obj;
+		};
+	}());
+	
 	obj_toFlatObject = function (mix, prefix, out = {}){
 		if (mix == null)
 			return out;
@@ -46,6 +79,7 @@ var obj_toFlatObject,
 					case 'Number':
 					case 'Boolean':
 					case 'Blob':
+					case 'File':
 						if (prop in out){
 							console.warn('ToFormData: Overwrite property', prop);
 						}
@@ -65,6 +99,7 @@ var obj_toFlatObject,
 			case 'Number':
 			case 'Boolean':
 			case 'Blob':
+			case 'File':
 				break;
 			default:
 				console.error('Possible type violation', type);

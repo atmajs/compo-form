@@ -2,7 +2,7 @@ var Builder;
 (function(){
 	Builder = {
 		createMessage (formCompo, params = {}) {
-			var body = getJson(formCompo),
+			var body = this.getJson(formCompo),
 				contentType = params.contentType || formCompo.xContentType,
 				endpoint = params.action || formCompo.xAction,
 				method = params.method || formCompo.xMethod;
@@ -18,7 +18,14 @@ var Builder;
 				method
 			});
 		},
-		getJson: getJson
+		getJson: function(formCompo) {
+			var json = obj_clone(getJson(formCompo));
+			var transformed = formCompo.transformData(json);
+			if (transformed != null) {
+				json = transformed;
+			}
+			return json;
+		}
 	};
 	
 	
@@ -31,6 +38,10 @@ var Builder;
 		compo_walk(formCompo, compo => {
 			var json = toJson(compo, false);
 			if (json) {
+				var property = compo.attr && compo.attr.property;
+				if (property) {
+					json = { [property]: json };
+				}
 				mask.obj.extend(data, json);
 				return { deep: false };
 			}

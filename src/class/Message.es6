@@ -9,10 +9,9 @@ var Message = mask.class.create({
 		this.body = body;
 		this.headers = params.headers;
 		
-		if (params.endpoint  ) this.endpoint    = params.endpoint   ;
-		if (params.method    ) this.method      = params.method     ;
+		if (params.endpoint   ) this.endpoint    = params.endpoint   ;
+		if (params.method     ) this.method      = params.method     ;
 		if (params.contentType) this.contentType = params.contentType;
-		
 	},
 	
 	get formData () {

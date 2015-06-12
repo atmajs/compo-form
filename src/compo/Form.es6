@@ -110,6 +110,10 @@ var FormDataCompo = mask.Compo({
 			});
 	},
 	
+	transformData (json) {
+		return json
+	},
+	
 	toJson () {
 		return Builder.getJson(this);
 	},
@@ -128,7 +132,11 @@ var FormDataCompo = mask.Compo({
 			return;
 		}
 		var message = Builder.createMessage(this);
-		
+		var error   = this.validateData(message.body);
+		if (error) {
+			this.errored_(new ValidationError(error));
+			return;
+		}
 		this.activity('start');
 		this.xhr = Transport
 			.upload(message)
@@ -180,7 +188,7 @@ var FormDataCompo = mask.Compo({
 		jmask(this)
 			.addClass(klass)
 			.children()
-			.each(x => x.attr.offset = this.xOffset)
+			.each(x => x.attr != null && (x.attr.offset = this.xOffset))
 			;		
 	},
 	
