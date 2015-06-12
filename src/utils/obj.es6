@@ -7,15 +7,15 @@ var obj_toFlatObject,
 			.prototype
 			.toString
 			.call(obj)
-			.replace('[object ')
-			.replace(']')
+			.replace('[object ', '')
+			.replace(']', '')
 			;
 	};
 	obj_toFlatObject = function (mix, prefix, out = {}){
 		if (mix == null)
 			return out;
 
-		var type = _getType(mix);
+		var type = obj_getType(mix);
 
 		if ('Array' === type) {
 			mix.forEach(function(x, i){
@@ -36,7 +36,7 @@ var obj_toFlatObject,
 				if (x == null)
 					continue;
 
-				var type = _getType(x);
+				var type = obj_getType(x);
 				switch (type) {
 					case 'Object':
 					case 'Array':

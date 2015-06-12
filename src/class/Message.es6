@@ -11,7 +11,7 @@ var Message = mask.class.create({
 		
 		if (params.endpoint  ) this.endpoint    = params.endpoint   ;
 		if (params.method    ) this.method      = params.method     ;
-		if (params.contenType) this.contentType = params.contentType;
+		if (params.contentType) this.contentType = params.contentType;
 		
 	},
 	
@@ -21,15 +21,20 @@ var Message = mask.class.create({
 		return form;
 	},
 	serializeHeaders () {
-		var obj = {
-			'Content-Type': this.contentType
-		};
+		var obj = {};
+		if (this.isFormData_() === false) {
+			obj['Content-Type'] = this.contentType;
+		}
 		return mask.obj.extend(obj, this.headers);
 	},
 	serialize () {
-		if (/form-data/i.test(this.contentType)) {
+		if (this.isFormData_()) {
 			return this.formData;
 		}
 		return JSON.stringify(this.body);
+	},
+	
+	isFormData_ () {
+		return /form-data/i.test(this.contentType)
 	}
 });

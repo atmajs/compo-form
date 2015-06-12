@@ -3,7 +3,7 @@ var Builder;
 	Builder = {
 		createMessage (formCompo, params = {}) {
 			var body = getJson(formCompo),
-				contentType = params.contentType || formCompo.xContenType,
+				contentType = params.contentType || formCompo.xContentType,
 				endpoint = params.action || formCompo.xAction,
 				method = params.method || formCompo.xMethod;
 			
