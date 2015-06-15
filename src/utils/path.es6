@@ -1,5 +1,6 @@
 var path_interpolate,
-	path_hasInterpolation;
+	path_hasInterpolation,
+	path_getKey;
 (function(){
 	
 	path_interpolate = function (path, model) {
@@ -7,6 +8,11 @@ var path_interpolate,
 			var key = mask.obj.get(model, property);
 			return  key ? ('/' + key) : '';
 		});
+	};
+	
+	path_getKey = function (path) {
+		var match = rgx_EntityKey.exec(path);
+		return match == null ? null : match[1];
 	};
 	
 	path_hasInterpolation = function (path) {

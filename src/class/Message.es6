@@ -27,6 +27,9 @@ var Message = mask.class.create({
 		return mask.obj.extend(obj, this.headers);
 	},
 	serialize () {
+		if (this.body == null) {
+			return null;
+		}
 		if (this.isFormData_()) {
 			return this.formData;
 		}

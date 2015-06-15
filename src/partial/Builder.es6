@@ -7,12 +7,32 @@ var Builder;
 				endpoint = params.action || formCompo.xAction,
 				method = params.method || formCompo.xMethod;
 			
-			if (path_hasInterpolation(endpoint)) {
+			var key = path_getKey(endpoint);
+			if (key) {
 				endpoint = path_interpolate(endpoint, body);
-				method = params.methodEdit || formCompo.xMethodEdit;
+				if (body[key] != null) {
+					method = params.methodEdit || formCompo.xMethodEdit;
+				}
 			}
-			
 			return new Message(body, {
+				contentType,
+				endpoint,
+				method
+			});
+		},
+		createDeleteMessage (formCompo, model) {
+			var endpoint = formCompo.xAction,
+				contentType = formCompo.xContentType,
+				method = 'DELETE';
+			
+			var key = path_getKey(endpoint);
+			if (key) {
+				if (model[key] == null) {
+					throw Error('`DELETE` method expects key in the model');
+				}
+				endpoint = path_interpolate(endpoint, model);
+			}
+			return new Message(null, {
 				contentType,
 				endpoint,
 				method

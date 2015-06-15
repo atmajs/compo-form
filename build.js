@@ -17,9 +17,16 @@ module.exports = {
 		output: 'lib/form.min.js'
 	},
 
+	'copy_project': {
+		action: 'copy',
+		files: {
+			'lib/form.js': 'file://d:/work/APO/Erfolgsrezept/Web/bower_components/compo-form/lib/'
+		}
+	},
+
 	'watch': {
 		files: 'src/**',
-		config: '#[build js]'
+		config: ['#[build js]', '#[copy_project]']
 	},
 	
 	'defaults': ['build js', 'uglify']

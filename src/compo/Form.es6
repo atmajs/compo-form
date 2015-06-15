@@ -30,7 +30,8 @@ var FormDataCompo = mask.Compo({
 	},
 	events: {
 		submit (event) {
-			return event.preventDefault();
+			// any button click can cause the submit, so relay only on the signals
+			event.preventDefault();
 		}
 	},
 	scope: {
@@ -48,11 +49,15 @@ var FormDataCompo = mask.Compo({
 	
 	activity (type, ...args) {
 		this.emitIn('formActivity', type, ...args);
-		if ('start' === type) {
-			this.signalState('submit', false);
-		}
-		if ('end' === type) {
-			this.signalState('submit', true);
+		
+		switch (type) {
+			case 'start':
+			case 'end':
+				this.signalState('submit', type === 'end');
+				break;
+			case 'error':
+				this.emitOut('error', args[0]);
+				break;
 		}
 	},
 	
@@ -89,8 +94,7 @@ var FormDataCompo = mask.Compo({
 		}
 		
 		var obj = this.model.entity || {};		
-		mask.obj.extend(obj, model);
-		
+		mask.obj.extend(obj, model);		
 		if (this.model.entity == null) {
 			this.model.entity = obj;
 		}
@@ -100,7 +104,21 @@ var FormDataCompo = mask.Compo({
 		return this.entity || this.model.entity;
 	},
 	
+	removeEntity (model) {
+		this.activity('start');
+		var x = model || this.getEntity(),
+			message = Builder.createDeleteMessage(this, x);
+		return Transport
+			.send(message)
+			.fail(error => this.errored_(error))
+			.done(() => {
+				this.activity('end', 'delete');
+				this.emitOut('complete', json);
+			})
+	},
+	
 	load (url) {
+		this.activity('start');
 		return Transport
 			.getJson(url)
 			.fail(error => this.errored_(error))
@@ -112,6 +130,10 @@ var FormDataCompo = mask.Compo({
 	
 	transformData (json) {
 		return json
+	},
+	
+	validateData (json) {
+		
 	},
 	
 	toJson () {
@@ -139,7 +161,7 @@ var FormDataCompo = mask.Compo({
 		}
 		this.activity('start');
 		this.xhr = Transport
-			.upload(message)
+			.send(message)
 			.fail(error => this.errored_(error))
 			.done(json => {
 				this.notify('success', 'OK');

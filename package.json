@@ -1,6 +1,6 @@
 {
   "name": "",
-  "version": "0.9.10",
+  "version": "0.9.11",
   "devDependencies": {
     "atma": ">0.9.26",
     "atma-loader-babel": "latest",
@@ -24,6 +24,7 @@
     }
   },
   "dependencies": {
+    "atma-server": "^0.1.23",
     "maskjs": "^0.12.21"
   }
 }

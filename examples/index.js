@@ -61,6 +61,11 @@
 		}
 	});
 	
+	
+	var EntityStore   = {
+		'foo' : { name: 'FooName' },
+		'baz' : { name: 'BazName' }
+	};
 	var EntityService = server.HttpService({
 		meta: {
 			headers: {
@@ -68,14 +73,38 @@
 				'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
 			}
 		},
-		'/:id': function (req, res, params) {
+		'$get /:id': function (req, res, params) {
+			var obj = EntityStore[params.id]
+			if (obj == null) {
+				this.reject('NotFound', 404);
+				return;
+			}
 			
-			this.resolve({
-				someString: 'Requested With ' + params.id
-			}, 200, 'application/json', {
-				'Access-Control-Allow-Origin': '*',
-				'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
-			});
+			this.resolve(obj);
+		},
+		'$delete /:id': function(req, res, params) {
+			delete EntityStore[params.id];
+		},
+		'$post /': function(req, res, params){
+			if (req.body == null || req.body.id == null) {
+				this.reject('Invalid object', 400);
+				return;
+			}
+			EntityStore[req.body.id] = req.body;
+			this.resolve('ok');
+		},
+		'$patch /:id': function(req, res, params){
+			var obj = EntityStore[params.id];
+			if (obj == null) {
+				this.reject('NotFound', 404);
+				return;
+			}
+			if (req.body == null) {
+				this.reject('Invalid object', 400);
+				return;
+			}
+			mask.obj.extend(obj, req.body);
+			this.resolve('ok');
 		}
 	});
 	

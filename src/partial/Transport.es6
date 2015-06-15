@@ -12,7 +12,7 @@ var Transport;
 			
 			return path_interpolate(endpoint, model);
 		},
-		upload (message) {
+		send (message) {
 			var { endpoint, method  } = message;
 			var body = message.serialize();
 			var xhr = new Xhr(endpoint, method);
