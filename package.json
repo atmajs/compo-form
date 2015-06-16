@@ -1,6 +1,6 @@
 {
   "name": "",
-  "version": "0.9.12",
+  "version": "0.9.13",
   "devDependencies": {
     "atma": ">0.9.26",
     "atma-loader-babel": "latest",
@@ -8,7 +8,8 @@
   },
   "scripts": {
     "test": "atma test",
-    "examples": "atma custom examples/index"
+    "examples": "atma custom examples/index",
+    "build": "atma"
   },
   "atma": {
     "plugins": [
