@@ -85,6 +85,9 @@ var obj_toFlatObject,
 						}
 						out[prop] = x;
 						continue;
+					case 'Date':
+						out[prop] = x.toISOString()
+						continue;
 					default: 
 						console.error('Possible type violation', type);
 						out[prop] = x;
@@ -95,6 +98,9 @@ var obj_toFlatObject,
 		}
 
 		switch(type) {
+			case 'Date':
+				mix = mix.toISOString()
+				break;
 			case 'String':
 			case 'Number':
 			case 'Boolean':

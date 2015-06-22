@@ -111,7 +111,7 @@ var FormDataCompo = mask.Compo({
 		return Transport
 			.send(message)
 			.fail(error => this.errored_(error))
-			.done(() => {
+			.done((json) => {
 				this.activity('end', 'delete');
 				this.emitOut('complete', json);
 			})
