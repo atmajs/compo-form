@@ -63,7 +63,7 @@ When `get` is just a flag, then the `action` value is used.  Supports **dynamic*
 
 - `in-memory` (Default is `false`)
 
-	> Only `complete` signal is emited without uploading to the endpoint
+	> Only signals are emitted without uploading to the endpoint
 
 _Mask interpolation are also supported._
 
@@ -102,7 +102,8 @@ a:form action='/user/~[userId]' method='PUT' get form-type=horizontal offset=4;
 
 - `getEntity()` Get current components model
 
-- `load(url)` Loads the model from remote and apply it to the form. This method is automaticaly called on render start, when `get` attribute is defined.
+- `loadEntity(url)` Loads the model from remote and apply it to the form. This function is automaticaly called on render start, when `get` attribute is defined.
+- `uploadEntity` Perform `POST/PATCH/PUT` action according to `form` attributes. This function is called on `submit` signal.
 - `notify(type, message)` Notifies about any status changes
 
 ## Signals
@@ -118,12 +119,18 @@ a:form action='/user/~[userId]' method='PUT' get form-type=horizontal offset=4;
 	- `end`: variations `('end', 'upload', json)`, `('end', 'load', json)`
 	- `complete`: plus arguments `json`. When not in-memory flag is used then is equivalent to `('end', 'upload', json)`
 	- `error`: plus arguments `Error`
+	- `formGet`: plus arguments `Object` (_server response_)
+	- `formPost`: plus arguments `Object` (_server response_)
+	- `formPut`: plus arguments `Object` (_server response_)
+	- `formPatch`: plus arguments `Object` (_server response_)
+	- `formDelete`: plus arguments `Object` (_server response_)
 	
 - `formNotification(notification: Object<type, message>`
 
 ## Slots
 
-- `submit` Starts uploading data on the signal
+- `submit` Submit entity 
+- `delete` Remove entity
 
 
 ## Components

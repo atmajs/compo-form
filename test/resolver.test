@@ -17,10 +17,13 @@ UTest({
 		UTest
 			.domtest(doc.body, `
 				find ('.byAction input') {
-					val ('Requested With foo');
+					val ('FooName');
 				}
 				find ('.byDynamicProperty input') {
-					val ('Requested With 20');
+					val ('FooName');
+				}
+				find ('.byFailedProperty') {
+					has ('text', 'endpoint not Found');
 				}
 			`)
 			.always(() => done(doc, win));

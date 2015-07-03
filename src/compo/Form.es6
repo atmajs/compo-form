@@ -26,7 +26,10 @@ var FormDataCompo = mask.Compo({
 		style: 'position: relative;'
 	},
 	slots: {
-		submit: 'submit'
+		'submit': 'submit',
+		'delete' () {
+			this.removeEntity();
+		}
 	},
 	events: {
 		submit (event) {
@@ -39,9 +42,8 @@ var FormDataCompo = mask.Compo({
 		notificationType: ''
 	},
 	submit  (event) {
-		event.preventDefault();
-		
-		this.upload();
+		event.preventDefault();		
+		this.uploadEntity();
 	},	
 	validate () {
 		return Validation.process(this);
@@ -78,7 +80,7 @@ var FormDataCompo = mask.Compo({
 		
 		if (this.xGet) {
 			this.model.entity = null;
-			return this.load(
+			return this.loadEntity(
 				Transport.getGetterEndpoint(this, model)
 			);
 		}
@@ -114,32 +116,11 @@ var FormDataCompo = mask.Compo({
 			.done((json) => {
 				this.activity('end', 'delete');
 				this.emitOut('complete', json);
+				this.emitOut('formDelete', this.getEntity(), json);
 			})
 	},
 	
-	load (url) {
-		this.activity('start');
-		return Transport
-			.getJson(url)
-			.fail(error => this.errored_(error))
-			.done(model => {
-				this.activity('end', 'load', model);
-				this.setEntity(model);
-			});
-	},
-	
-	transformData (json) {
-		return json
-	},
-	
-	validateData (json) {
-		
-	},
-	
-	toJson () {
-		return Builder.getJson(this);
-	},
-	upload () {
+	uploadEntity () {
 		if (this.xhr && this.xhr.isBusy()) {
 			return;
 		}
@@ -173,8 +154,37 @@ var FormDataCompo = mask.Compo({
 				
 				this.activity('end', 'upload', json);
 				this.emitOut('complete', json);
+				
+				var method = message.method.toLowerCase();
+				var name = method[0].toUpperCase() + method.substring(1);
+				this.emitOut('form' + name, json, this.getEntity());
 			});
 	},
+	
+	loadEntity (url) {
+		this.activity('start');
+		return Transport
+			.getJson(url)
+			.fail(error => this.errored_(error))
+			.done(model => {
+				this.activity('end', 'load', model);
+				this.setEntity(model);
+				this.emitOut('formGet', model);
+			});
+	},
+	
+	transformData (json) {
+		return json
+	},
+	
+	validateData (json) {
+		
+	},
+	
+	toJson () {
+		return Builder.getJson(this);
+	},
+	
 	
 	notify (type, message) {
 		if (arguments.length === 0) {
