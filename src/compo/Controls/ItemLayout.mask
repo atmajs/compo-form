@@ -6,7 +6,8 @@ let ItemLayout {
 		}
 		
 		.col-sm-@[12-attr.offset] {
-			@element;
+			@content;
+			@else > @element;
 		}
 	}
 }

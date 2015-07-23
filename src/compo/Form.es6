@@ -1,12 +1,12 @@
 var FormDataCompo = mask.Compo({
 	tagName: 'form',
-	
+
 	builder: null,
 	transport: null,
-	
+
 	model: null,
 	entity: null,
-	
+
 	meta: {
 		attributes: {
 			'form-type': '',
@@ -42,16 +42,16 @@ var FormDataCompo = mask.Compo({
 		notificationType: ''
 	},
 	submit  (event) {
-		event.preventDefault();		
+		event.preventDefault();
 		this.uploadEntity();
-	},	
+	},
 	validate () {
 		return Validation.process(this);
 	},
-	
+
 	activity (type, ...args) {
 		this.emitIn('formActivity', type, ...args);
-		
+
 		switch (type) {
 			case 'start':
 			case 'end':
@@ -62,22 +62,22 @@ var FormDataCompo = mask.Compo({
 				break;
 		}
 	},
-	
+
 	onRenderStart (model_, ctx) {
 		var model = model_ || {};
 		this.model = {
 			entity: model
-		};		
-		
+		};
+
 		this.ensureReflect_();
 		this.ensureCompo_('Notification');
 		this.ensureCompo_('Progress');
 		this.formLayout_();
-		
-		var $with = mask.jmask('+with (entity) > div');		
+
+		var $with = mask.jmask('+with (entity) > div');
 		$with.children().append(this.nodes);
 		this.nodes = $with;
-		
+
 		if (this.xGet) {
 			this.model.entity = null;
 			return this.loadEntity(
@@ -85,27 +85,27 @@ var FormDataCompo = mask.Compo({
 			);
 		}
 	},
-	
+
 	setEntity (model) {
 		this.entity = model;
 		this.notify();
-		
+
 		if (this.xDetachedModel === false) {
 			this.model.entity = model;
 			return;
 		}
-		
-		var obj = this.model.entity || {};		
-		mask.obj.extend(obj, model);		
+
+		var obj = this.model.entity || {};
+		mask.obj.extend(obj, model);
 		if (this.model.entity == null) {
 			this.model.entity = obj;
 		}
 	},
-	
+
 	getEntity () {
 		return this.entity || this.model.entity;
 	},
-	
+
 	removeEntity (model) {
 		this.activity('start');
 		var x = model || this.getEntity(),
@@ -119,7 +119,7 @@ var FormDataCompo = mask.Compo({
 				this.emitOut('formDelete', this.getEntity(), json);
 			})
 	},
-	
+
 	uploadEntity () {
 		if (this.xhr && this.xhr.isBusy()) {
 			return;
@@ -145,22 +145,23 @@ var FormDataCompo = mask.Compo({
 			.send(message)
 			.fail(error => this.errored_(error))
 			.done(json => {
-				this.notify('success', 'OK');
+				var msg = json.message || 'OK';
 				if (this.xRedirect) {
-					this.notify('success', 'OK. Redirecting...');
+					this.notify('success', `${msg}. Redirecting...`);
 					window.location.href = this.xRedirect;
 					return;
 				}
-				
+
+				this.notify('success', msg);
 				this.activity('end', 'upload', json);
 				this.emitOut('complete', json);
-				
+
 				var method = message.method.toLowerCase();
 				var name = method[0].toUpperCase() + method.substring(1);
 				this.emitOut('form' + name, json, this.getEntity());
 			});
 	},
-	
+
 	loadEntity (url) {
 		this.activity('start');
 		return Transport
@@ -172,20 +173,20 @@ var FormDataCompo = mask.Compo({
 				this.emitOut('formGet', model);
 			});
 	},
-	
+
 	transformData (json) {
 		return json
 	},
-	
+
 	validateData (json) {
-		
+
 	},
-	
+
 	toJson () {
 		return Builder.getJson(this);
 	},
-	
-	
+
+
 	notify (type, message) {
 		if (arguments.length === 0) {
 			type = message = '';
@@ -194,7 +195,7 @@ var FormDataCompo = mask.Compo({
 		this.scope.notificationMsg  = message;
 		this.emitIn('formNotification', { type, message });
 	},
-	
+
 	ensureCompo_ (name) {
 		var set = jmask(this).children(name);
 		if (set.length !== 0) {
@@ -208,7 +209,7 @@ var FormDataCompo = mask.Compo({
 			jmask(this).prepend('Reflect');
 		}
 	},
-	
+
 	formLayout_ () {
 		var klass = 'form';
 		if (this.xFormType) {
@@ -221,9 +222,9 @@ var FormDataCompo = mask.Compo({
 			.addClass(klass)
 			.children()
 			.each(x => x.attr != null && (x.attr.offset = this.xOffset))
-			;		
+			;
 	},
-	
+
 	throw_ (error) {
 		this.nodes = mask.parse(`
 			div style='background: red; color: white; padding: 15px; font-weight: bold' {
@@ -231,7 +232,7 @@ var FormDataCompo = mask.Compo({
 			}
 		`);
 	},
-	
+
 	errored_ (error) {
 		this.activity('end');
 		this.activity('error', error);
@@ -246,7 +247,7 @@ var Template = `
 	// import Controls/Notification.mask
 	// import Controls/Progress.mask
 	// import Controls/Dialog.mask
-	
+
 	// import Editors/Array.mask
 	// import Editors/Checkbox.mask
 	// import Editors/Input.mask
