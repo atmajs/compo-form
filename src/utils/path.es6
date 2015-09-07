@@ -6,7 +6,7 @@ var path_interpolate,
 	path_interpolate = function (path, model) {
 		return path.replace(rgx_EntityKey, (full, property) => {
 			var key = mask.obj.get(model, property);
-			return  key ? ('/' + key) : '';
+			return  key == null ? '' : ('/' + key);
 		});
 	};
 	
