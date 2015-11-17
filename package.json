@@ -1,6 +1,6 @@
 {
-  "name": "",
-  "version": "0.10.19",
+  "name": "compo-form",
+  "version": "0.10.20",
   "devDependencies": {
     "atma": ">0.9.26",
     "atma-loader-babel": "latest",
@@ -25,6 +25,6 @@
     }
   },
   "dependencies": {
-    "maskjs": "^0.51.27"
+    "maskjs": "*"
   }
 }
