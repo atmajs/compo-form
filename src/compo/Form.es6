@@ -54,11 +54,11 @@ var FormDataCompo = mask.Compo({
 	},
 	validateNative () {
 		var el = this.$[0];
-		if (el.checkValidity == null) return new Error;
-		if (el.checkValidity()) return new Error;
+		if (el.checkValidity == null) return null;
+		if (el.checkValidity()) return null;
 		
-		$('<button>').appendTo(this.$).click();
-		return null; 
+		$('<button style="display:none">').appendTo(this.$).click().remove();
+		return new Error; 
 	},
 
 	activity (type, ...args) {
