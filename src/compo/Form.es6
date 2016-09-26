@@ -6,6 +6,7 @@ var FormDataCompo = mask.Compo({
 
 	model: null,
 	entity: null,
+	isNativeValidation: false,
 
 	meta: {
 		attributes: {
@@ -38,7 +39,8 @@ var FormDataCompo = mask.Compo({
 		},
 		click (event) {
 			// any button click can cause validation, so relay only on the signals
-			event.preventDefault();	
+			if (this.isNativeValidation !== true) 
+				event.preventDefault();	
 		}
 	},
 	scope: {
@@ -57,7 +59,9 @@ var FormDataCompo = mask.Compo({
 		if (el.checkValidity == null) return null;
 		if (el.checkValidity()) return null;
 		
+		this.isNativeValidation = true;
 		$('<button style="display:none">').appendTo(this.$).click().remove();
+		this.isNativeValidation = false;
 		return new Error; 
 	},
 
