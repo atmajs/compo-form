@@ -35,6 +35,10 @@ var FormDataCompo = mask.Compo({
 		submit (event) {
 			// any button click can cause the submit, so relay only on the signals
 			event.preventDefault();
+		},
+		click (event) {
+			// any button click can cause validation, so relay only on the signals
+			event.preventDefault();	
 		}
 	},
 	scope: {
@@ -47,6 +51,14 @@ var FormDataCompo = mask.Compo({
 	},
 	validate () {
 		return Validation.process(this);
+	},
+	validateNative () {
+		var el = this.$[0];
+		if (el.checkValidity == null) return new Error;
+		if (el.checkValidity()) return new Error;
+		
+		$('<button>').appendTo(this.$).click();
+		return null; 
 	},
 
 	activity (type, ...args) {
@@ -122,6 +134,10 @@ var FormDataCompo = mask.Compo({
 
 	uploadEntity () {
 		if (this.xhr && this.xhr.isBusy()) {
+			return;
+		}
+		var error = this.validateNative();
+		if (error) {
 			return;
 		}
 		var error = this.validate();
