@@ -18,7 +18,7 @@ var Transport;
 			var xhr = new Xhr(endpoint, method);
 						
 			return xhr
-				.write(message.serialize())
+				.write(body)
 				.writeHeaders(message.serializeHeaders())
 				.send()
 				;
