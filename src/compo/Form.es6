@@ -39,7 +39,7 @@ var FormDataCompo = mask.Compo({
 		},
 		click (event) {
 			// any button click can cause validation, so relay only on the signals
-			if (this.isNativeValidation !== true) 
+			if (event.target.tagName === 'BUTTON' && this.isNativeValidation !== true) 
 				event.preventDefault();	
 		}
 	},
