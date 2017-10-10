@@ -5,7 +5,8 @@ var Builder;
 			var body = this.getJson(formCompo),
 				contentType = params.contentType || formCompo.xContentType,
 				endpoint = params.action || formCompo.xAction,
-				method = params.method || formCompo.xMethod;
+				method = params.method || formCompo.xMethod,
+				headers = params.headers || formCompo.getHeaders();
 			
 			var key = path_getKey(endpoint);
 			if (key) {
@@ -17,7 +18,8 @@ var Builder;
 			return new Message(body, {
 				contentType,
 				endpoint,
-				method
+				method,
+				headers
 			});
 		},
 		createDeleteMessage (formCompo, model) {

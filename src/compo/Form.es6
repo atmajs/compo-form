@@ -122,6 +122,10 @@ var FormDataCompo = mask.Compo({
 		return this.entity || this.model.entity;
 	},
 
+	getHeaders () {
+
+	},
+
 	removeEntity (model) {
 		this.activity('start');
 		var x = model || this.getEntity(),

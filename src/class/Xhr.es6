@@ -118,10 +118,21 @@ var Xhr;
 			for (var key in this.headers) {
 				xhr.setRequestHeader(key, this.headers[key]);
 			}
-			
+
+			this.beforeSend(xhr);
 			this.emit('start');
 			xhr.send(this.data);
 			return this;
+		},
+
+		beforeSend (xhr) {
+			this.checkJQuery(xhr);
+		},
+		checkJQuery (xhr) {
+			let j = typeof $ !== 'undefined' && $ || typeof jQuery !== 'undefined' && jQuery || null;
+			if (j && j.ajaxSettings && j.ajaxSettings.beforeSend) {
+				j.ajaxSettings.beforeSend(xhr);
+			}
 		}
 	})
 }());
